@@ -9,10 +9,16 @@ def main():
     #initialize tracker 
     tracker = Tracker("models/best.pt")
 
-    tracks = tracker.get_object_tracks(video_frames)
+    tracks = tracker.get_object_tracks(video_frames,
+                                       read_from_stub=True,
+                                       stub_path="stubs/track_stubs.pkl",)
     
+    # Draw Output
+    ## Draw object tracks
+    output_video_frames = tracker.draw_annotations(video_frames, tracks)
+
     # Save Video
-    save_video(output_video_frames=video_frames, output_video_path="output_videos/output.avi")
+    save_video(output_video_frames, "output_videos/output.avi")
     
 if __name__ == '__main__':
     main()
